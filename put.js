@@ -2,7 +2,7 @@ import http from "k6/http";
 import { describe } from 'https://jslib.k6.io/expect/0.0.4/index.js';
 import { check } from "k6";
 
-const URL = "https://reqres.in/api/users/2";
+const URL = "https://reqres.in/api/users/2"; 
 
 export const options = {
     stages: [
