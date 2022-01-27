@@ -14,9 +14,9 @@ jobs:
         with:
           filename: post.js
 
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v2
-        with:
-          name: report
-          path: summary.html
-          retention-days: 2
+      # - name: 'Upload Artifact'
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: report
+      #     path: summary.html
+      #     retention-days: 2
