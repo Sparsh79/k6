@@ -13,3 +13,10 @@ jobs:
         uses: k6io/action@v0.1
         with:
           filename: post.js
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: report
+          path: summary
+          retention-days: 2
