@@ -8,7 +8,7 @@ export const options = {
     stages: [
       { duration: '2m', target: 100 }, // simulate ramp-up of traffic from 1 to 100 users over 2 minutes.
       { duration: '1m', target: 100 }, // stay at 100 users for 1 minutes
-      { duration: '5s', target: 0 }, // ramp-down to 0 users
+      { duration: '5s', target: 0 }, //ramp-down to 0 users
     ],
     thresholds: {
       'http_req_duration': ['p(99)<1500'], // 99% of requests must complete below 1.5s
