@@ -1,6 +1,7 @@
 import { check } from "k6";
 import http from "k6/http";
 import { describe } from 'https://jslib.k6.io/expect/0.0.4/index.js';
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js"
 
 export let options = {
     vus: 10,
@@ -29,3 +30,9 @@ export default function POSTRequestTest(){
     .toEqual(201)    
 });
 }
+
+export function handleSummary(data) {
+    return {
+      "summary.html": htmlReport(data),
+    };
+  }
