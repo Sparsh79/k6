@@ -16,6 +16,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
+job:
+
 k6_load_test:
   name: k6 Load Test
   runs-on: ubuntu-latest
