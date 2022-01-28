@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Run local k6 test
+      - name: Run k6 load test
         uses: k6io/action@v0.1
         with:
           filename: post.js
