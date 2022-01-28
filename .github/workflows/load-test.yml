@@ -14,12 +14,6 @@ jobs:
         with:
           filename: post.js
 
-      - uses: actions/checkout@v2
-
-      - run: mkdir -p report
-
-      - run: echo hello > report/summary.html
-
       - uses: actions/upload-artifact@v2
         with:
           name: summary
