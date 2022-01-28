@@ -14,7 +14,6 @@ jobs:
         with:
           filename: post.js
 
-    steps:
       - uses: actions/checkout@v2
 
       - run: mkdir -p report
