@@ -17,7 +17,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: summary
-          path: report/summary.html
+          path: summary.html
       # - name: 'Upload Artifact'
       #   uses: actions/upload-artifact@v2
       #   with:
