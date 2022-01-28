@@ -14,6 +14,17 @@ jobs:
         with:
           filename: post.js
 
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: mkdir -p report
+
+      - run: echo hello > report/summary.html
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: summary
+          path: report/summary.html
       # - name: 'Upload Artifact'
       #   uses: actions/upload-artifact@v2
       #   with:
