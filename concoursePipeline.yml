@@ -1,0 +1,73 @@
+resources:
+# The repo with our Dockerfile
+- name: concourse-poc
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/Sparsh79/k6.git
+    branch: master
+
+- name: alias-query
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/Sparsh79/KarateMaven.git
+    branch: master
+
+# Where we will push the image to
+- name: con-example
+  type: registry-image
+  icon: docker
+  source:
+    repository: sparsh97/con-example
+    username: sparsh97
+    password: sparsh10!
+    tag: latest
+
+
+jobs:
+- name: build-and-push-docker-image-cmd-and-query
+  plan:
+  - get: concourse-poc 
+    trigger: true
+  - get: alias-query
+    trigger: true
+  - task: build-image-cmd
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: vito/oci-build-task
+      inputs:
+      - name: concourse-poc
+      outputs:
+      - name: image
+      run:
+        path: build
+      params:
+        CONTEXT: concourse-poc/Dockerfiles
+  - put: con-example
+    params:
+      image: image/image.tar
+
+  - task: build-image-query
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: vito/oci-build-task
+      inputs:
+      - name: alias-query
+      outputs:
+      - name: image
+      run:
+        path: build
+      params:
+        CONTEXT: alias-query/Dockerfiles
+  - put: con-example
+    params:
+      image: image/image.tar
