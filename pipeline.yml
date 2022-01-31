@@ -7,35 +7,29 @@ resources:
     uri: https://github.com/Sparsh79/k6.git
     branch: master
 
+- name: alias-cmd
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/Sparsh79/KarateMaven.git
+    branch: master
+
 # Where we will push the image to
 - name: con-example
   type: registry-image
   icon: docker
   source:
     repository: sparsh97/con-example
-    username: sparsh79
+    username: sparsh97
     password: sparsh10!
+    tag: latest
+
 
 jobs:
 - name: build-and-push
   plan:
-  - get: concourse-poc
+  - aggregate:
+     - get: concourse-poc 
+     - get: alias-cmd
   - task: build-image
-    privileged: true
-    config:
-      platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: vito/oci-build-task
-      inputs:
-      - name: concourse-poc
-      outputs:
-      - name: image
-      run:
-        path: build
-      params:
-        CONTEXT: concourse-poc/Dockerfiles
-  - put: con-example
-    params:
-      image: image/image.tar
+    file: concourse-poc/try.yml
