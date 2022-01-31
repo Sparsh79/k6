@@ -1,12 +1,41 @@
+resources:
+# The repo with our Dockerfile
+- name: concourse-poc
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/Sparsh79/k6.git
+    branch: master
+
+# Where we will push the image to
+- name: con-example
+  type: registry-image
+  icon: docker
+  source:
+    repository: sparsh97/con-example
+    username: sparsh79
+    password: sparsh10!
+
 jobs:
-  - name: hello-world
-    plan:
-      - task: say-hello
-        config:
-          platform: linux
-          image_resource:
-            type: registry-image
-            source: {repository: alpine}
-          run:
-            path: echo
-            args: ["Hello, world!"]
+- name: build-and-push
+  plan:
+  - get: concourse-poc
+  - task: build-image
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: vito/oci-build-task
+      inputs:
+      - name: concourse-poc
+      outputs:
+      - name: image
+      run:
+        path: build
+      params:
+        CONTEXT: concourse-poc/Dockerfiles
+  - put: con-example
+    params:
+      image: image/image.tar
