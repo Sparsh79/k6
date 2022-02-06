@@ -8,31 +8,31 @@ export let options = {
     duration: '3s'
 };
 
-export default function POSTRequestTest(){
+export default function POSTRequestTest() {
 
     describe("Dummy POST request", (t) => {
 
-    const URL = "https://reqres.in/api/users";
-    const payload = JSON.stringify({
-        
+        const URL = "https://reqres.in/api/users";
+        const payload = JSON.stringify({
+
             "name": "Batman",
             "job": "Dark Knight"
         });
 
-    let response = http.post(URL, payload);
-    console.log(JSON.stringify(response.body));
-    // check(response,{
+        let response = http.post(URL, payload);
+        console.log(JSON.stringify(response.body));
+        // check(response,{
         // "status is 201": statusCode => statusCode.status === 201
-    // });
+        // });
 
-    t.expect(response.status)
-    .as("response status")
-    .toEqual(201)    
-});
+        t.expect(response.status)
+            .as("response status")
+            .toEqual(201)
+    });
 }
 
 export function handleSummary(data) {
     return {
-      "summary.html": htmlReport(data),
+        "summary.html": htmlReport(data),
     };
-  }
+}
